@@ -7,20 +7,23 @@ namespace NET_Core
     {
         static void Main(string[] args)
         {
-            Task<int> task1 = CountCharacter(1,"http://www.illustratedcsharp.com");
-            Task<int> task2 = CountCharacter(2,"https://www.csdn.net");
-            //如果是task1.wait(),那么就是用于单一的task对象，等待task1完成再执行下面的代码
-            Task[] tasks = { task1,task2};
-            Task.WaitAll(tasks);
-            Console.WriteLine($"task1 {(task1.IsCompleted?" ":"not")} complete");
-            Console.WriteLine($"task2 {(task2.IsCompleted ? " " : "not")} complete");
-            Console.WriteLine($"The count is {task1.Result}and {task2.Result}");
-
+            Task<int> len= DownloadString("https://www.csdn.net/","http://www.microsoft.com");
+            Console.WriteLine("microsoft's len is"+len.Result);
         }
-        public static async Task<int> CountCharacter(int id,string url)
+        public static async Task<int> DownloadString(string url1,string url2)
         {
-            string site=await new HttpClient().GetStringAsync(url);
-            return site.Length; 
+            HttpClient client1 = new HttpClient();
+            HttpClient client2 = new HttpClient();
+            //下面这两个就是同步执行两个异步方法，就是线性工作流，执行时间是A+B
+            //string s1=await client1.GetStringAsync(url1);
+            //string s2=await client2.GetStringAsync(url2);
+            Task<string> task1=client1.GetStringAsync(url1);
+            Task<string> task2 =client2.GetStringAsync(url2);
+            //这里使用await使得whenall变成线性流，同时等待两个异步方法完成！这就是组合子之一whenall,还有一个是whenany，
+            //显然，这会使得执行时间变成max(A,B)!!!
+            await Task.WhenAll(task1, task2);
+            Console.WriteLine($"task1 is {(task1.IsCompleted?"":"not")} completed");
+            return task2.Result.Length;
         }
     }
 }
