@@ -1,29 +1,24 @@
 ﻿using System;
+using System.Text;
 using System.Timers;
 
 namespace NET_Core
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Task<int> len= DownloadString("https://www.csdn.net/","http://www.microsoft.com");
-            Console.WriteLine("microsoft's len is"+len.Result);
-        }
-        public static async Task<int> DownloadString(string url1,string url2)
-        {
-            HttpClient client1 = new HttpClient();
-            HttpClient client2 = new HttpClient();
-            //下面这两个就是同步执行两个异步方法，就是线性工作流，执行时间是A+B
-            //string s1=await client1.GetStringAsync(url1);
-            //string s2=await client2.GetStringAsync(url2);
-            Task<string> task1=client1.GetStringAsync(url1);
-            Task<string> task2 =client2.GetStringAsync(url2);
-            //这里使用await使得whenall变成线性流，同时等待两个异步方法完成！这就是组合子之一whenall,还有一个是whenany，
-            //显然，这会使得执行时间变成max(A,B)!!!
-            await Task.WhenAll(task1, task2);
-            Console.WriteLine($"task1 is {(task1.IsCompleted?"":"not")} completed");
-            return task2.Result.Length;
+            Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
+            StringBuilder stringBuilder = new StringBuilder();
+            for(int i = 0; i <10000; i++)
+            {
+                stringBuilder.Append("asdfasdfasfdasdf");
+            }
+            //反正await等待期间，这个线程用不了
+            //所以.NET就把这个线程返回到线程池，直到这个异步方法执行完毕，再取出一个线程来执行接下来的代码
+            //优化：如果等待时间很短，就没必要切换线程
+            await File.WriteAllTextAsync(@"D:\code\c#\hhhh.txt", stringBuilder.ToString());
+            Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
         }
     }
 }
