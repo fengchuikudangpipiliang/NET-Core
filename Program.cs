@@ -2,6 +2,7 @@
 using System.Text;
 using System.Timers;
 using Microsoft.Extensions.DependencyInjection;
+using LitJson;
 #pragma warning disable CRR0029
 namespace NET_Core
 {
@@ -9,46 +10,33 @@ namespace NET_Core
     {
         static async Task Main(string[] args)
         {
-           Test t = new DerivedClass();
-            t.Test1();
+            try
+            {
+                string jsonStr = await File.ReadAllTextAsync(@"C:\Users\Lenovo\source\repos\NET Core\TextFile1.txt");
+
+                JsonData data = JsonMapper.ToObject(jsonStr);
+                JsonData data1 = data["employees"];
+                JsonData data2 = data1[0];
+                JsonData data3 = data2["firstName"];
+                Console.WriteLine(data3.ToString());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
-    interface IController
+    class Company
     {
-        void Test();
-    }
-    class Controller 
-    {
-        private readonly ILog _log;
-        public Controller(ILog log)
+        public string name;
+        public string createTime;
+        public bool isShanghai;
+        public int registerMoney;
+        public Employee[] employees;
+        public override string ToString()
         {
-            this._log = log;    
+            return string.Format($"name:{name},createTime:{createTime}" +
+                $"isShanghai:{isShanghai},registerMoney:{registerMoney}");
         }
-        public void Test()
-        {
-            this._log.MyLog("sss");
-        }
-    }
-    interface ILog
-    {
-        public void MyLog(string message);
-    }
-    class LogIm : ILog
-    {
-        public void MyLog(string message)
-        {
-            Console.WriteLine("hello"+message);
-        }
-    }
-    class Test
-    {
-        public void Test1()
-        {
-            Console.WriteLine("test");
-        }
-    }
-    class DerivedClass:Test
-    {
-        public void Test1 (){ Console.WriteLine("继承"); }
     }
 }
