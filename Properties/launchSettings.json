@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "NET Core": {
+      "commandName": "Project",
+      "commandLineArgs": "name=chenhao proxy={address=haerbin}"
+    }
+  }
+}
