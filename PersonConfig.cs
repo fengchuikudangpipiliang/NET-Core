@@ -8,6 +8,7 @@ namespace NET_Core
         public void Configure(EntityTypeBuilder<Person> builder)
         {
             builder.ToTable("T_Persons");
+            
         }
     }
 }

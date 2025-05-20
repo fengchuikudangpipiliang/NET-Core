@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace NET_Core
 {
     public class MyDBContext:DbContext//逻辑上的数据库
     {
+        private static ILoggerFactory loggerFactory = LoggerFactory.Create(log=>log.AddConsole());
         //数据库生成的表的名字是这里的属性名，不是实体名
-        public DbSet<Book> Books { get; set; }//DBSet实现了枚举，因此可以使用Linq
+        public DbSet<Book> Books { get; set; }//DBSet实现了枚举，因此可以使用Linq，EFCore会帮我们转化为sql语句
         //但是使用的肯定是efcore扩展的方法，返回类型有点变化
         public DbSet<Person> Persons { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -33,6 +35,7 @@ namespace NET_Core
              适用于自签名证书或测试环境
              */
             optionsBuilder.UseSqlServer("Server=(local);Database=test;TrustServerCertificate=True;Integrated Security=True;Encrypt=True;");
+            optionsBuilder.UseLoggerFactory(loggerFactory);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
