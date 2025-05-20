@@ -5,6 +5,10 @@ VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NET Core", "NET Core.csproj", "{FA34F2D1-AF78-405A-8DC8-85FBD88FE243}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Relation", "..\Relation\Relation.csproj", "{602FAA5A-1A72-4DE6-9D3F-B414715DEFB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "自引用的组织结构树", "..\自引用的组织结构树\自引用的组织结构树.csproj", "{A7B48AD7-8BD4-4CC1-9626-27494753C982}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,9 +16,16 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FA34F2D1-AF78-405A-8DC8-85FBD88FE243}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA34F2D1-AF78-405A-8DC8-85FBD88FE243}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA34F2D1-AF78-405A-8DC8-85FBD88FE243}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA34F2D1-AF78-405A-8DC8-85FBD88FE243}.Release|Any CPU.Build.0 = Release|Any CPU
+		{602FAA5A-1A72-4DE6-9D3F-B414715DEFB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{602FAA5A-1A72-4DE6-9D3F-B414715DEFB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{602FAA5A-1A72-4DE6-9D3F-B414715DEFB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{602FAA5A-1A72-4DE6-9D3F-B414715DEFB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7B48AD7-8BD4-4CC1-9626-27494753C982}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7B48AD7-8BD4-4CC1-9626-27494753C982}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7B48AD7-8BD4-4CC1-9626-27494753C982}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7B48AD7-8BD4-4CC1-9626-27494753C982}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
